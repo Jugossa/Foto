@@ -5,7 +5,7 @@ const fs = require('fs');
 const path = require('path');
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000; // Para Render
 
 // Configuración de vistas y archivos estáticos
 app.set('view engine', 'ejs');
@@ -27,6 +27,11 @@ const drive = google.drive({ version: 'v3', auth });
 const FOLDER_PENDIENTES = '19-yMSMgCXDTcTgrywcttDqyGT2_oyepf';
 const FOLDER_APROBADAS = '1yRBid4wwy1hrw_Hl94OyitiztyVx8ZPw';
 const FOLDER_RECHAZADAS = '13go9bbRWhdrxVsnWV_j8UnglsZePIclc';
+
+// Página principal redirige a galería
+app.get('/', (req, res) => {
+    res.redirect('/galeria');
+});
 
 // Página para subir fotos
 app.get('/upload', (req, res) => {
